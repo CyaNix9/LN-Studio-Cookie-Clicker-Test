@@ -8,11 +8,11 @@ public class CC_CookieManager : MonoBehaviour {
 		point += amount * clickMultiplier;
 		Debug.Log("Cookies: " + point);
 	}
-	public void AddClickMultiplier(int amount) {
-		clickMultiplier += amount;
+	public void SetClickMultiplier(int amount) {
+		clickMultiplier = amount;
 		Debug.Log("Click Multiplier: " + clickMultiplier);
 	}
 	public bool CanAfford(int cost) {
-		return point >= cost;
+		return point >= cost ? (point -= cost) >= 0 : false;
 	}
 }
