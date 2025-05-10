@@ -14,6 +14,11 @@ public class CC_CookieManager : MonoBehaviour {
 		}
 		DontDestroyOnLoad(gameObject);
 	}
+	private void Update() {
+		if (autoClickRate > 0) {
+			point += (int)(Time.deltaTime * autoClickRate);
+		}
+	}
 	public void AddPoint(int amount) {
 		point += (amount == 0) ? clickMultiplier : amount;
 		Debug.Log("Points: " + point);
@@ -21,6 +26,10 @@ public class CC_CookieManager : MonoBehaviour {
 	public void SetClickMultiplier(int amount) {
 		clickMultiplier = amount;
 		Debug.Log("Click Multiplier: " + clickMultiplier);
+	}
+	public void SetAutoClickRate(float rate) {
+		autoClickRate = rate;
+		Debug.Log("Auto Click Rate: " + autoClickRate);
 	}
 	public bool CanAfford(int cost) {
 		return point >= cost ? (point -= cost) >= 0 : false;
