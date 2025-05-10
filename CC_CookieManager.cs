@@ -1,12 +1,22 @@
 using UnityEngine;
 
 public class CC_CookieManager : MonoBehaviour {
+	public static CC_CookieManager Instance;
 	[SerializeField] int point;
 	[SerializeField] int clickMultiplier = 1;
 	[SerializeField] float autoClickRate;
-	public void OnCookieClick(int amount) {
-		point += amount * clickMultiplier;
-		Debug.Log("Cookies: " + point);
+	private void Awake() {
+		if (Instance == null) {
+			Instance = this;
+		}
+		else {
+			Destroy(gameObject);
+		}
+		DontDestroyOnLoad(gameObject);
+	}
+	public void AddPoint(int amount) {
+		point += (amount == 0) ? clickMultiplier : amount;
+		Debug.Log("Points: " + point);
 	}
 	public void SetClickMultiplier(int amount) {
 		clickMultiplier = amount;
