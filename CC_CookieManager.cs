@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class CC_CookieManager : MonoBehaviour {
@@ -5,6 +6,7 @@ public class CC_CookieManager : MonoBehaviour {
 	[SerializeField] int point;
 	[SerializeField] int clickMultiplier = 1;
 	[SerializeField] float autoClickRate;
+	[SerializeField] TMP_Text pointText;
 	private void Awake() {
 		if (Instance == null) {
 			Instance = this;
@@ -21,7 +23,10 @@ public class CC_CookieManager : MonoBehaviour {
 	}
 	public void AddPoint(int amount) {
 		point += (amount == 0) ? clickMultiplier : amount;
-		Debug.Log("Points: " + point);
+		SetPointText();
+	}
+	void SetPointText() {
+		pointText.text = point.ToString();
 	}
 	public void SetClickMultiplier(int amount) {
 		clickMultiplier = amount;
@@ -32,6 +37,14 @@ public class CC_CookieManager : MonoBehaviour {
 		Debug.Log("Auto Click Rate: " + autoClickRate);
 	}
 	public bool CanAfford(int cost) {
-		return point >= cost ? (point -= cost) >= 0 : false;
+		if (point >= cost) {
+			point -= cost;
+			SetPointText();
+			return true;
+		}
+		else {
+			Debug.Log("Not enough points");
+			return false;
+		}
 	}
 }
