@@ -8,17 +8,14 @@ public class CC_CookieManager : MonoBehaviour {
 	[SerializeField] float autoClickRate;
 	[SerializeField] TMP_Text pointText;
 	private void Awake() {
-		if (Instance == null) {
-			Instance = this;
-		}
-		else {
-			Destroy(gameObject);
-		}
+		if (Instance == null) Instance = this;
+		else Destroy(gameObject);
 		DontDestroyOnLoad(gameObject);
 	}
 	private void Update() {
 		if (autoClickRate > 0) {
 			point += (int)(Time.deltaTime * autoClickRate);
+			SetPointText();
 		}
 	}
 	public void AddPoint(int amount) {
